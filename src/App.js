@@ -32,7 +32,12 @@ class App extends Component {
     }
 
     intermitentRequest() {
-        setInterval(this.getData.bind(this), 5000);
+        var self = this;
+        setInterval(function() {
+            self.setState({ render: false });
+            self.getData();
+            self.setState({ render: true });
+        }, 5000);
     }
 
     render() {

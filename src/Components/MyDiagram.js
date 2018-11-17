@@ -162,7 +162,7 @@ class MyDiagram extends React.Component {
             //     arrangement: go.TreeLayout.ArrangementVertical,
             //     treeStyle: go.TreeLayout.StyleLayered
             // }),
-            isReadOnly: false,
+            isReadOnly: true,
             allowHorizontalScroll: true,
             allowVerticalScroll: true,
             allowZoom: false,
