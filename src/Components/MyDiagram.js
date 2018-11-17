@@ -160,11 +160,12 @@ class MyDiagram extends React.Component {
                 go.Part, // this Part is not bound to any model data
                 {
                     layerName: 'Background',
-                    position: new go.Point(-450, -200),
+                    position: new go.Point(-425, -120),
                     selectable: false,
+
                     pickable: false
                 },
-                $(go.Picture, 'assets/img/bg.png')
+                $(go.Picture, 'assets/img/bg1.png')
             )
         );
 
@@ -175,7 +176,7 @@ class MyDiagram extends React.Component {
             go.Node,
             'Vertical',
             $(go.Picture, new go.Binding('source', 'img'), {
-                desiredSize: new go.Size(55, 55)
+                desiredSize: new go.Size(100, 100)
             }),
             $(go.TextBlock, new go.Binding('text', 'produccion'))
         );
