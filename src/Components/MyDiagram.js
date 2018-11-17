@@ -137,21 +137,35 @@ class MyDiagram extends React.Component {
         const $ = go.GraphObject.make;
 
         const myDiagram = $(go.Diagram, diagramId, {
-            initialContentAlignment: go.Spot.LeftCenter,
+            initialDocumentSpot: go.Spot.BottomCenter,
+            initialViewportSpot: go.Spot.BottomCenter,
             // layout: $(go.TreeLayout, {
             //     angle: 0,
             //     arrangement: go.TreeLayout.ArrangementVertical,
             //     treeStyle: go.TreeLayout.StyleLayered
             // }),
-            isReadOnly: false,
+            isReadOnly: true,
             allowHorizontalScroll: true,
             allowVerticalScroll: true,
             allowZoom: false,
             allowSelect: true,
-            autoScale: Diagram.Uniform,
-            contentAlignment: go.Spot.LeftCenter,
+            autoScale: go.Diagram.Uniform,
+            contentAlignment: go.Spot.Center,
             TextEdited: this.onTextEdited
         });
+
+        myDiagram.add(
+            $(
+                go.Part, // this Part is not bound to any model data
+                {
+                    layerName: 'Background',
+                    position: new go.Point(0, 0),
+                    selectable: false,
+                    pickable: false
+                },
+                $(go.Picture, 'assets/img/bg.png')
+            )
+        );
 
         myDiagram.toolManager.panningTool.isEnabled = false;
         myDiagram.toolManager.mouseWheelBehavior = ToolManager.WheelScroll;
@@ -164,6 +178,8 @@ class MyDiagram extends React.Component {
             }),
             $(go.TextBlock, new go.Binding('text', 'produccion'))
         );
+
+        // the background image, a floor plan
 
         return myDiagram;
     }
