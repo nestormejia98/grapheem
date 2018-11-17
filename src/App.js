@@ -18,7 +18,7 @@ class App extends Component {
             .then(response => response.json())
             .then(json => {
                 console.log(json);
-                console.log(json.electricgrid);
+                console.log('la length es', json.electricgrid.length);
                 this.setState({ nodos: json.electricgrid });
             })
             .then(() => {
@@ -30,10 +30,6 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo" />
-                    <h1 className="App-title">react-gojs example in es6</h1>
-                </header>
                 <MyDiagram nodes={this.state.nodos} />
             </div>
         );
