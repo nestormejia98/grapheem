@@ -81,15 +81,16 @@ class MyDiagram extends React.Component {
         var aristas = [];
         this.props.nodes.forEach(element => {
             nodos.push({
-                key: element.id.toString(),
+                key: element.device_id,
                 label: this.getLabel(),
                 color: 'red',
-                img: this.getImgPath(element.tipo),
-                produccion: element.produccion.toString()
+                img: this.getImgPath(element.type),
+                produccion: element.data.produccion.toString(),
+                consumo: element.data.consumo.toString()
             });
 
-            element.aristas.forEach(e => {
-                aristas.push({ from: element.id.toString(), to: e.toString() });
+            element.arista.forEach(e => {
+                aristas.push({ from: element.device_id, to: e.device_id, extension: 500 });
             });
         });
         var data = { nodes: nodos, lifts: aristas };
@@ -99,18 +100,34 @@ class MyDiagram extends React.Component {
     getLabel() {}
 
     getImgPath(i) {
+        const consumer_imgs = [
+            '/assets/img/energy_consuming_1_img.png',
+            '/assets/img/energy_consuming_2_img.png',
+            '/assets/img/energy_consuming_3_img.png',
+            '/assets/img/energy_consuming_4_img.png'
+        ];
+
+        const cons_prod_imgs = [
+            '/assets/img/cons_prod_1_img.png',
+            '/assets/img/cons_prod_2_img.png',
+            '/assets/img/cons_prod_3_img.png',
+            '/assets/img/cons_prod_4_img.png'
+        ];
         switch (i) {
-            case 'Utility Conection':
+            case 'UtilityConnection':
                 return '/assets/img/utility_connection_img.png';
 
-            case 'Energy Storage':
+            case 'StorageDevice':
                 return '/assets/img/energy_storage_img.png';
 
-            case 'Energy Consuming':
-                return '/assets/img/energy_consuming_1_img.png';
+            case 'ElectricityConsumingDevice':
+                return consumer_imgs[Math.floor(Math.random() * consumer_imgs.length)];
 
-            case 'Power Source':
+            case 'PowerSource':
                 return '/assets/img/power_source_img.png';
+
+            case 'Consumer Producer':
+                return cons_prod_imgs[Math.floor(Math.random() * cons_prod_imgs.length)];
 
             default:
                 return '/assets/img/energy_consuming_1_img.png';
@@ -145,7 +162,7 @@ class MyDiagram extends React.Component {
             //     arrangement: go.TreeLayout.ArrangementVertical,
             //     treeStyle: go.TreeLayout.StyleLayered
             // }),
-            isReadOnly: true,
+            isReadOnly: false,
             allowHorizontalScroll: true,
             allowVerticalScroll: true,
             allowZoom: false,
@@ -178,7 +195,17 @@ class MyDiagram extends React.Component {
             $(go.Picture, new go.Binding('source', 'img'), {
                 desiredSize: new go.Size(100, 100)
             }),
-            $(go.TextBlock, new go.Binding('text', 'produccion'))
+            $(go.TextBlock, new go.Binding('text', 'produccion')),
+            $(go.TextBlock, new go.Binding('text', 'consumo'))
+        );
+        myDiagram.linkTemplate = $(
+            go.Link,
+            { reshapable: true, routing: go.Link.Orthogonal },
+            $(go.Shape, { stroke: 'green', strokeWidth: 2 }), // the link shape
+            $(
+                go.Shape, // the arrowhead
+                { toArrow: 'OpenTriangle', fill: null, stroke: 'green' }
+            )
         );
 
         // the background image, a floor plan

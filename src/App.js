@@ -11,17 +11,28 @@ class App extends Component {
     }
 
     componentWillMount() {
+        this.getData();
+        this.intermitentRequest();
+    }
+
+    getData() {
+        console.log('refreshing data');
         fetch(
-            'https://mongo-functions.azurewebsites.net/api/get-electric-grid?code=DC7VP4oiH6Q36l1SVtaj0oJBL6goHMNavAqnMGSdBDGO4oIu95eKyg=='
+            'https://mongo-functions.azurewebsites.net/api/get-management-grid?code=paqHfX3/PimY/f0yC3d2BaNcjghRtmYhzyzPJ/fPPVaoNS5BCFnJVA=='
         )
             .then(response => response.json())
             .then(json => {
                 console.log(json);
-                console.log('la length es', json.electricgrid.length);
-                this.setState({ nodos: json.electricgrid });
+
+                this.setState({ nodos: json.res });
                 this.setState({ render: true }); //After 1 second, set render to true
+                this.setState({ state: this.state });
             })
             .catch(e => console.log(e));
+    }
+
+    intermitentRequest() {
+        setInterval(this.getData.bind(this), 5000);
     }
 
     render() {
