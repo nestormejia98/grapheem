@@ -25,7 +25,7 @@ class MyDiagram extends React.Component {
         this.state = {
             selectedNodeKeys: [],
             model: {
-                nodeDataArray: [{ key: 'Alpha', label: 'Alpha', color: 'lightblue' }],
+                nodeDataArray: [{ key: 'initialNode', label: 'initialNode', color: 'lightblue' }],
                 linkDataArray: []
             }
         };
@@ -56,17 +56,96 @@ class MyDiagram extends React.Component {
             ...this.state,
             model: {
                 nodeDataArray: [
-                    { key: 'Alpha', label: 'Alpha', color: 'lightblue' },
-                    { key: 'Beta', label: 'Beta', color: 'orange' },
-                    { key: 'Gamma', label: 'Gamma', color: 'lightgreen' },
-                    { key: 'Delta', label: 'Delta', color: 'pink' },
-                    { key: 'Omega', label: 'Omega', color: 'grey' }
+                    {
+                        key: 'HidCent1',
+                        label: 'Central Hidráulica 1',
+                        color: 'lightblue',
+                        img: '/assets/img/utility_connection_img.png'
+                    },
+                    {
+                        key: 'Cons1',
+                        label: 'Consumidor 1',
+                        color: 'red',
+                        img: '/assets/img/energy_consuming_1_img.png'
+                    },
+                    {
+                        key: 'Cons2',
+                        label: 'Consumidor 2',
+                        color: 'red',
+                        img: '/assets/img/energy_consuming_1_img.png'
+                    },
+                    {
+                        key: 'AltEner1',
+                        label: 'Energía Alternativa 1',
+                        color: 'green',
+                        img: '/assets/img/power_source_img.png'
+                    },
+                    {
+                        key: 'HidCent2',
+                        label: 'Central Hidráulica 2',
+                        color: 'lightblue',
+                        img: '/assets/img/utility_connection_img.png'
+                    },
+                    {
+                        key: 'Cons3',
+                        label: 'Consumidor 3',
+                        color: 'red',
+                        img: '/assets/img/energy_consuming_1_img.png'
+                    },
+                    {
+                        key: 'Cons4',
+                        label: 'Consumidor 4',
+                        color: 'red',
+                        img: '/assets/img/energy_consuming_1_img.png'
+                    },
+                    {
+                        key: 'HidCent3',
+                        label: 'Central Hidráulica 3',
+                        color: 'lightblue',
+                        img: '/assets/img/utility_connection_img.png'
+                    },
+                    {
+                        key: 'Cons5',
+                        label: 'Consumidor 5',
+                        color: 'red',
+                        img: '/assets/img/energy_consuming_1_img.png'
+                    },
+                    {
+                        key: 'Cons6',
+                        label: 'Consumidor 6',
+                        color: 'red',
+                        img: '/assets/img/energy_consuming_1_img.png'
+                    },
+                    {
+                        key: 'AltEner2',
+                        label: 'Energía Alternativa 2',
+                        color: 'green',
+                        img: '/assets/img/power_source_img.png'
+                    },
+                    {
+                        key: 'Cons7',
+                        label: 'Consumidor 7',
+                        color: 'red',
+                        img: '/assets/img/energy_consuming_1_img.png'
+                    },
+                    { key: 'Cons8', label: 'Consumidor 8', color: 'red', img: '/assets/img/energy_consuming_1_img.png' }
                 ],
                 linkDataArray: [
-                    { from: 'Alpha', to: 'Beta' },
-                    { from: 'Alpha', to: 'Gamma' },
-                    { from: 'Beta', to: 'Delta' },
-                    { from: 'Gamma', to: 'Omega' }
+                    { from: 'HidCent1', to: 'Cons1', fromSpot: 'Right', toSpot: 'Left' },
+                    { from: 'HidCent2', to: 'Cons3', fromSpot: 'Right', toSpot: 'Left' },
+                    { from: 'HidCent3', to: 'Cons5', fromSpot: 'Right', toSpot: 'Left' },
+                    { from: 'Cons1', to: 'Cons2', fromSpot: 'Right', toSpot: 'Left' },
+                    { from: 'Cons3', to: 'Cons4', fromSpot: 'Right', toSpot: 'Left' },
+                    { from: 'Cons5', to: 'Cons6', fromSpot: 'Right', toSpot: 'Left' },
+                    { from: 'Cons7', to: 'Cons8', fromSpot: 'Right', toSpot: 'Left' },
+                    { from: 'Cons1', to: 'Cons3', fromSpot: 'Bottom', toSpot: 'Top' },
+                    { from: 'Cons2', to: 'Cons4', fromSpot: 'Bottom', toSpot: 'Top' },
+                    { from: 'Cons3', to: 'Cons5', fromSpot: 'Bottom', toSpot: 'Top' },
+                    { from: 'Cons4', to: 'Cons6', fromSpot: 'Bottom', toSpot: 'Top' },
+                    { from: 'Cons5', to: 'Cons7', fromSpot: 'Bottom', toSpot: 'Top' },
+                    { from: 'Cons6', to: 'Cons8', fromSpot: 'Bottom', toSpot: 'Top' },
+                    { from: 'AltEner1', to: 'Cons2', fromSpot: 'Left', toSpot: 'Right' },
+                    { from: 'AltEner2', to: 'Cons6', fromSpot: 'Left', toSpot: 'Right' }
                 ]
             }
         });
@@ -94,11 +173,11 @@ class MyDiagram extends React.Component {
 
         const myDiagram = $(go.Diagram, diagramId, {
             initialContentAlignment: go.Spot.LeftCenter,
-            layout: $(go.TreeLayout, {
-                angle: 0,
-                arrangement: go.TreeLayout.ArrangementVertical,
-                treeStyle: go.TreeLayout.StyleLayered
-            }),
+            // layout: $(go.TreeLayout, {
+            //     angle: 0,
+            //     arrangement: go.TreeLayout.ArrangementVertical,
+            //     treeStyle: go.TreeLayout.StyleLayered
+            // }),
             isReadOnly: false,
             allowHorizontalScroll: true,
             allowVerticalScroll: true,
@@ -114,15 +193,27 @@ class MyDiagram extends React.Component {
 
         myDiagram.nodeTemplate = $(
             go.Node,
-            'Auto',
-            {
-                selectionChanged: node => this.nodeSelectionHandler(node.key, node.isSelected)
-            },
-            $(go.Shape, 'RoundedRectangle', { strokeWidth: 0 }, new go.Binding('fill', 'color')),
-            $(go.TextBlock, { margin: 8, editable: true }, new go.Binding('text', 'label'))
+            'Vertical',
+            $(go.Picture, new go.Binding('source', 'img'), {
+                desiredSize: new go.Size(55, 55)
+            })
         );
 
         return myDiagram;
+    }
+
+    imageSelection(nodeType) {
+        console.log(typeof nodeType);
+        const $ = go.GraphObject.make;
+        if (nodeType.includes('HidCent')) {
+            return '/assets/img/utility_connection_img.png';
+        } else if (nodeType.includes('Cons')) {
+            return '/assets/img/energy_consuming_1_img.png';
+        } else if (nodeType.includes('AltEner')) {
+            return '/assets/img/power_source_img.png';
+        } else {
+            return '/assets/img/energy_consuming_2_img.png';
+        }
     }
 
     modelChangeHandler(event) {
