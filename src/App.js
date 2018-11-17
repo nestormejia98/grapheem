@@ -52,7 +52,7 @@ class App extends Component {
                     <div id="titleContainer">
                         <h4>Real Time Panel Control</h4>
                     </div>
-                    <MyDiagram nodes={this.state.nodos} />
+                    <MyDiagram nodes={this.state.nodos} id="graphContainer" />
                 </div>
             );
         } else {
