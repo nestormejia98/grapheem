@@ -25,10 +25,11 @@ class MyDiagram extends React.Component {
         this.state = {
             selectedNodeKeys: [],
             model: {
-                nodeDataArray: [{ key: 'initialNode', label: 'initialNode', color: 'lightblue' }],
+                nodeDataArray: [{ key: 'initialNode', label: 'initialNode', color: 'lightblue', img: '' }],
                 linkDataArray: []
             }
         };
+        console.log('los nodos son: ', this.props.nodes);
     }
 
     render() {
@@ -149,6 +150,35 @@ class MyDiagram extends React.Component {
                 ]
             }
         });
+    }
+
+    mapNodesPropsToNodesStructure() {
+        var nodos = [];
+        var aristas = [];
+        this.props.nodes.foreach(element => {
+            nodos.push({ key: element.id, label: this.getLabel(), color: 'red', img: this.getImgPath(element.tipo) });
+            element.aristas.foreach(e => {
+                aristas.push({ from: element.id, to: e.id });
+            });
+        });
+    }
+
+    getLabel() {}
+
+    getImgPath(i) {
+        switch (i) {
+            case 'Utility Conection':
+                return '/assets/img/utility_connection_img.png';
+
+            case 'Energy Storage':
+                return '/assets/img/energy_storage_img.png';
+
+            case 'Energy Consuming':
+                return '/assets/img/energy_consuming_1_img.png';
+
+            case 'Power Source':
+                return '/assets/img/power_source_img.png';
+        }
     }
 
     updateColorHandler() {

@@ -11,9 +11,40 @@ class App extends Component {
                     <img src={logo} className="App-logo" alt="logo" />
                     <h1 className="App-title">react-gojs example in es6</h1>
                 </header>
-                <MyDiagram />
+                <MyDiagram nodes={this.getNodes()} />
             </div>
         );
+    }
+
+    getNodes() {
+        var nodes = [];
+        nodes.push({
+            id: 1,
+            name: 'Red nacional de energia',
+            tipo: 'Utility Conection',
+            aristas: [0, 3, 4]
+        });
+
+        nodes.push({
+            id: 3,
+            name: 'Bateria',
+            tipo: 'Energy Storage',
+            aristas: [0]
+        });
+        nodes.push({
+            id: 4,
+            name: 'casa',
+            tipo: 'Energy Consuming',
+            aristas: []
+        });
+        nodes.push({
+            id: 5,
+            name: 'Empresa',
+            tipo: 'Energy Consuming',
+            aristas: [4]
+        });
+
+        return nodes;
     }
 }
 
