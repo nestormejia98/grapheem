@@ -155,7 +155,7 @@ class MyDiagram extends React.Component {
             TextEdited: this.onTextEdited
         });
 
-        myDiagram.add(
+        /*myDiagram.add(
             $(
                 go.Part, // this Part is not bound to any model data
                 {
@@ -167,7 +167,7 @@ class MyDiagram extends React.Component {
                 },
                 $(go.Picture, 'assets/img/bg1.png')
             )
-        );
+        );*/
 
         myDiagram.toolManager.panningTool.isEnabled = false;
         myDiagram.toolManager.mouseWheelBehavior = ToolManager.WheelScroll;
