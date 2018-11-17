@@ -68,9 +68,15 @@ class MyDiagram extends React.Component {
         var nodos = [];
         var aristas = [];
         this.props.nodes.forEach(element => {
-            nodos.push({ key: element.id, label: this.getLabel(), color: 'red', img: this.getImgPath(element.tipo) });
+            nodos.push({
+                key: element.id.toString(),
+                label: this.getLabel(),
+                color: 'red',
+                img: this.getImgPath(element.tipo)
+            });
+
             element.aristas.forEach(e => {
-                aristas.push({ from: element.id, to: e.id });
+                aristas.push({ from: element.id.toString(), to: e.toString() });
             });
         });
         var data = { nodes: nodos, lifts: aristas };

@@ -22,14 +22,14 @@ class App extends Component {
             id: 1,
             name: 'Red nacional de energia',
             tipo: 'Utility Conection',
-            aristas: [0, 3, 4]
+            aristas: ['0', '3', '4']
         });
 
         nodes.push({
             id: 3,
             name: 'Bateria',
             tipo: 'Energy Storage',
-            aristas: [0]
+            aristas: ['0']
         });
         nodes.push({
             id: 4,
@@ -41,7 +41,7 @@ class App extends Component {
             id: 5,
             name: 'Empresa',
             tipo: 'Energy Consuming',
-            aristas: [4]
+            aristas: ['4']
         });
 
         return nodes;
