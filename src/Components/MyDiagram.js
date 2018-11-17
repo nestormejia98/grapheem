@@ -27,9 +27,20 @@ class MyDiagram extends React.Component {
             model: {
                 nodeDataArray: [{ key: 'initialNode', label: 'initialNode', color: 'lightblue', img: '' }],
                 linkDataArray: []
-            }
+            },
+            render: false
         };
-        this.mapNodesPropsToNodesStructure();
+    }
+
+    componentDidMount() {
+        setTimeout(
+            function() {
+                //Start the timer
+                this.setState({ render: true }); //After 1 second, set render to true
+            }.bind(this),
+            1000
+        );
+        setTimeout(this.mapNodesPropsToNodesStructure.bind(this), 1000);
     }
 
     render() {
@@ -72,7 +83,8 @@ class MyDiagram extends React.Component {
                 key: element.id.toString(),
                 label: this.getLabel(),
                 color: 'red',
-                img: this.getImgPath(element.tipo)
+                img: this.getImgPath(element.tipo),
+                produccion: element.produccion.toString()
             });
 
             element.aristas.forEach(e => {
@@ -98,6 +110,9 @@ class MyDiagram extends React.Component {
 
             case 'Power Source':
                 return '/assets/img/power_source_img.png';
+
+            default:
+                return '/assets/img/energy_consuming_1_img.png';
         }
     }
 
@@ -146,7 +161,8 @@ class MyDiagram extends React.Component {
             'Vertical',
             $(go.Picture, new go.Binding('source', 'img'), {
                 desiredSize: new go.Size(55, 55)
-            })
+            }),
+            $(go.TextBlock, new go.Binding('text', 'produccion'))
         );
 
         return myDiagram;
@@ -154,7 +170,7 @@ class MyDiagram extends React.Component {
 
     imageSelection(nodeType) {
         console.log(typeof nodeType);
-        const $ = go.GraphObject.make;
+
         if (nodeType.includes('HidCent')) {
             return '/assets/img/utility_connection_img.png';
         } else if (nodeType.includes('Cons')) {

@@ -4,6 +4,29 @@ import MyDiagram from './Components/MyDiagram';
 import './App.css';
 
 class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            render: false //Set render state to false
+        };
+    }
+
+    componentWillMount() {
+        fetch(
+            'https://mongo-functions.azurewebsites.net/api/get-electric-grid?code=DC7VP4oiH6Q36l1SVtaj0oJBL6goHMNavAqnMGSdBDGO4oIu95eKyg=='
+        )
+            .then(response => response.json())
+            .then(json => {
+                console.log(json);
+                console.log(json.electricgrid);
+                this.setState({ nodos: json.electricgrid });
+            })
+            .then(() => {
+                this.setState({ render: true }); //After 1 second, set render to true
+            })
+            .catch(e => console.log(e));
+    }
+
     render() {
         return (
             <div className="App">
@@ -11,7 +34,7 @@ class App extends Component {
                     <img src={logo} className="App-logo" alt="logo" />
                     <h1 className="App-title">react-gojs example in es6</h1>
                 </header>
-                <MyDiagram nodes={this.getNodes()} />
+                <MyDiagram nodes={this.state.nodos} />
             </div>
         );
     }
