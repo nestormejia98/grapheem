@@ -33,8 +33,8 @@ class App extends Component {
                         <br />
                         <h1 className="App-title">Serverless Power Management System</h1>
                     </header>
-                    <div id="title">
-                        <h3>Real Time Panel Control</h3>
+                    <div id="titleContainer">
+                        <h4>Real Time Panel Control</h4>
                     </div>
                     <MyDiagram nodes={this.state.nodos} />
                 </div>
