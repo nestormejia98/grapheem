@@ -53,7 +53,6 @@ class MyDiagram extends React.Component {
             <button id="initButton" type="button" onClick={this.initModelHandler} className="hidenButton">
                 Init diagram
             </button>,
-            <SelectionDetails key="selectionDetails" selectedNodes={this.state.selectedNodeKeys} />,
             <GojsDiagram
                 key="gojsDiagram"
                 diagramId="myDiagramDiv"
@@ -161,7 +160,7 @@ class MyDiagram extends React.Component {
                 go.Part, // this Part is not bound to any model data
                 {
                     layerName: 'Background',
-                    position: new go.Point(0, 0),
+                    position: new go.Point(-450, -200),
                     selectable: false,
                     pickable: false
                 },
