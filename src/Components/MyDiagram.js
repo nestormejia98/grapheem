@@ -29,7 +29,7 @@ class MyDiagram extends React.Component {
                 linkDataArray: []
             }
         };
-        console.log('los nodos son: ', this.props.nodes);
+        this.mapNodesPropsToNodesStructure();
     }
 
     render() {
@@ -53,101 +53,13 @@ class MyDiagram extends React.Component {
     }
 
     initModelHandler() {
+        var data = this.mapNodesPropsToNodesStructure();
+
         this.setState({
             ...this.state,
             model: {
-                nodeDataArray: [
-                    {
-                        key: 'HidCent1',
-                        label: 'Central Hidráulica 1',
-                        color: 'lightblue',
-                        img: '/assets/img/utility_connection_img.png'
-                    },
-                    {
-                        key: 'Cons1',
-                        label: 'Consumidor 1',
-                        color: 'red',
-                        img: '/assets/img/energy_consuming_1_img.png'
-                    },
-                    {
-                        key: 'Cons2',
-                        label: 'Consumidor 2',
-                        color: 'red',
-                        img: '/assets/img/energy_consuming_1_img.png'
-                    },
-                    {
-                        key: 'AltEner1',
-                        label: 'Energía Alternativa 1',
-                        color: 'green',
-                        img: '/assets/img/power_source_img.png'
-                    },
-                    {
-                        key: 'HidCent2',
-                        label: 'Central Hidráulica 2',
-                        color: 'lightblue',
-                        img: '/assets/img/utility_connection_img.png'
-                    },
-                    {
-                        key: 'Cons3',
-                        label: 'Consumidor 3',
-                        color: 'red',
-                        img: '/assets/img/energy_consuming_1_img.png'
-                    },
-                    {
-                        key: 'Cons4',
-                        label: 'Consumidor 4',
-                        color: 'red',
-                        img: '/assets/img/energy_consuming_1_img.png'
-                    },
-                    {
-                        key: 'HidCent3',
-                        label: 'Central Hidráulica 3',
-                        color: 'lightblue',
-                        img: '/assets/img/utility_connection_img.png'
-                    },
-                    {
-                        key: 'Cons5',
-                        label: 'Consumidor 5',
-                        color: 'red',
-                        img: '/assets/img/energy_consuming_1_img.png'
-                    },
-                    {
-                        key: 'Cons6',
-                        label: 'Consumidor 6',
-                        color: 'red',
-                        img: '/assets/img/energy_consuming_1_img.png'
-                    },
-                    {
-                        key: 'AltEner2',
-                        label: 'Energía Alternativa 2',
-                        color: 'green',
-                        img: '/assets/img/power_source_img.png'
-                    },
-                    {
-                        key: 'Cons7',
-                        label: 'Consumidor 7',
-                        color: 'red',
-                        img: '/assets/img/energy_consuming_1_img.png'
-                    },
-                    { key: 'Cons8', label: 'Consumidor 8', color: 'red', img: '/assets/img/energy_consuming_1_img.png' }
-                ],
-                linkDataArray: [
-                    { from: 'HidCent1', to: 'Cons1', fromSpot: 'Right', toSpot: 'Left' },
-                    { from: 'HidCent2', to: 'Cons3', fromSpot: 'Right', toSpot: 'Left' },
-                    { from: 'HidCent3', to: 'Cons5', fromSpot: 'Right', toSpot: 'Left' },
-                    { from: 'Cons1', to: 'Cons2', fromSpot: 'Right', toSpot: 'Left' },
-                    { from: 'Cons3', to: 'Cons4', fromSpot: 'Right', toSpot: 'Left' },
-                    { from: 'Cons5', to: 'Cons6', fromSpot: 'Right', toSpot: 'Left' },
-                    { from: 'Cons7', to: 'Cons8', fromSpot: 'Right', toSpot: 'Left' },
-                    { from: 'Cons1', to: 'Cons3', fromSpot: 'Bottom', toSpot: 'Top' },
-                    { from: 'Cons2', to: 'Cons4', fromSpot: 'Bottom', toSpot: 'Top' },
-                    { from: 'Cons3', to: 'Cons5', fromSpot: 'Bottom', toSpot: 'Top' },
-                    { from: 'Cons4', to: 'Cons6', fromSpot: 'Bottom', toSpot: 'Top' },
-                    { from: 'Cons5', to: 'Cons7', fromSpot: 'Bottom', toSpot: 'Top' },
-                    { from: 'Cons6', to: 'Cons8', fromSpot: 'Bottom', toSpot: 'Top' },
-                    { from: 'AltEner1', to: 'Cons2', fromSpot: 'Left', toSpot: 'Right' },
-                    { from: 'AltEner2', to: 'Cons6', fromSpot: 'Left', toSpot: 'Right' }
-                ]
+                nodeDataArray: data.nodes,
+                linkDataArray: data.lifts
             }
         });
     }
@@ -155,12 +67,14 @@ class MyDiagram extends React.Component {
     mapNodesPropsToNodesStructure() {
         var nodos = [];
         var aristas = [];
-        this.props.nodes.foreach(element => {
+        this.props.nodes.forEach(element => {
             nodos.push({ key: element.id, label: this.getLabel(), color: 'red', img: this.getImgPath(element.tipo) });
-            element.aristas.foreach(e => {
+            element.aristas.forEach(e => {
                 aristas.push({ from: element.id, to: e.id });
             });
         });
+        var data = { nodes: nodos, lifts: aristas };
+        return data;
     }
 
     getLabel() {}
