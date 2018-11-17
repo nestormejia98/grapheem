@@ -6,6 +6,7 @@ import DiagramButtons from './DiagramButtons';
 import './MyDiagram.css';
 import { getRandomColor } from '../Helpers/ColorHelper';
 import SelectionDetails from './SelectionDetails';
+import '../Css/styles.css';
 
 class MyDiagram extends React.Component {
     nodeId = 0;
@@ -40,17 +41,18 @@ class MyDiagram extends React.Component {
             }.bind(this),
             1000
         );
-        setTimeout(this.mapNodesPropsToNodesStructure.bind(this), 1000);
+        setTimeout(() => {
+            this.mapNodesPropsToNodesStructure.bind(this);
+            this.initModelHandler.bind(this);
+            document.getElementById('initButton').click();
+        }, 1000);
     }
 
     render() {
         return [
-            <DiagramButtons
-                key="diagramButtons"
-                onInit={this.initModelHandler}
-                onUpdateColor={this.updateColorHandler}
-                onAddNode={this.addNode}
-            />,
+            <button id="initButton" type="button" onClick={this.initModelHandler} className="hidenButton">
+                Init diagram
+            </button>,
             <SelectionDetails key="selectionDetails" selectedNodes={this.state.selectedNodeKeys} />,
             <GojsDiagram
                 key="gojsDiagram"
